@@ -22,7 +22,6 @@ var Users = new Schema({
   }
 });
 
-
 //Add unique validation properties to the model
 Users.plugin(uniqueValidator);
 
