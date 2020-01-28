@@ -11,6 +11,8 @@ var app = express();
 
 var config = require('./config.dev');
 
+var mongoose = require('mongoose');
+
 
 
 // view engine setup
