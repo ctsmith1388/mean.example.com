@@ -21,6 +21,12 @@ gulp.task('build-main-css', function(){
   return merge(main);
 });
 
+gulp.task('build-js', [
+  'build-main-js',
+  'build-auth-js',
+  'build-users-js'
+]);
+
 gulp.task('build-main-js', function() {
 
   var authApp = gulp.src([
@@ -41,6 +47,20 @@ gulp.task('build-auth-js', function() {
   .pipe(concat('auth.app.min.js'))
   .pipe(uglify())
   .pipe(gulp.dest('public/dist/js'));
+
+  gulp.task('build-users-js', function() {
+
+    var userApp = gulp.src([
+      'src/js/users.app.js',
+    ])
+    .pipe(concat('users.app.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('public/dist/js'));
+
+    return merge(userApp);
+  });
+
+
 
   return merge(authApp);
 });
