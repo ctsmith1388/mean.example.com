@@ -21,12 +21,6 @@ gulp.task('build-main-css', function(){
   return merge(main);
 });
 
-gulp.task('build-js', [
-  'build-main-js',
-  'build-auth-js',
-  'build-users-js'
-]);
-
 gulp.task('build-main-js', function() {
 
   var authApp = gulp.src([
@@ -48,22 +42,32 @@ gulp.task('build-auth-js', function() {
   .pipe(uglify())
   .pipe(gulp.dest('public/dist/js'));
 
-  gulp.task('build-users-js', function() {
-
-    var userApp = gulp.src([
-      'src/js/users.app.js',
-    ])
-    .pipe(concat('users.app.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('public/dist/js'));
-
-    return merge(userApp);
-  });
-
-
-
   return merge(authApp);
 });
+
+gulp.task('build-users-js', function() {
+
+  var userApp = gulp.src([
+    'src/js/users.app.js',
+  ])
+  .pipe(concat('users.app.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('public/dist/js'));
+
+  return merge(userApp);
+});
+
+// gulp.task('build-articles-js', function() {
+
+//   var articleApp = gulp.src([
+//     'src/js/articles.app.js',
+//   ])
+//   .pipe(concat('articles.app.min.js'))
+//   .pipe(uglify())
+//   .pipe(gulp.dest('public/dist/js'));
+
+//   return merge(articleApp);
+// });
 
 //Recompile SCSS/JS on save
 gulp.task('watch', function(){
@@ -81,4 +85,6 @@ gulp.task('build-css', gulp.series('build-main-css'));
 gulp.task('build-js', gulp.series(
     'build-main-js',
     'build-auth-js',
+    'build-users-js',
+    // 'build-articles-js'
   ));
